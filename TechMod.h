@@ -4,11 +4,11 @@
 #include "GameMod.h"
 #include "OtherMod.h"
 
-void infowait(struct fdstr *fdlist,int i,int maxpl);
-void waitdialog(struct fdstr **fdlist,fd_set readfds,int *i,int maxpl);
-void waitpl(struct fdstr **fdlist,int ls,int maxpl);
-void dolistensock(int *ls,int port);
-void gameserv(int port,int maxpl);
-int main(int argc,char **argv);
+void infowait(struct fdstr*,int,int);
+void waitdialog(struct fdstr**,fd_set,int*,int);
+void waitpl(struct fdstr**,int,int);
+void dolistensock(int*,int);
+void gameserv(int,int);
+int main(int,char**);
 
 #endif
