@@ -108,7 +108,7 @@ void dolistensock(int *ls,int port)
 void gameserv(int port,int maxpl)
 {
   struct fdstr *fdlist;
-  int ls,pipefd[2];
+  int ls,//pipefd[2];
   fd_set readfds;
 
   dolistensock(&ls,port);
@@ -125,7 +125,7 @@ void gameserv(int port,int maxpl)
     {
       /* child */
       
-      close(pipefd[0]);
+    	close(pipefd[0]);
       game(fdlist); /* goto GameMod */
       write(pipefd[1],"0",1);
       close(pipefd[1]);
