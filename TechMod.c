@@ -11,7 +11,7 @@ void infowait(struct fdstr *fdlist,int i,int maxpl)
     write((*fdlist).fd,s,strlen(s));
     fdlist=(*fdlist).next;
   }
-	write(0,s,strlen(s));
+  write(0,s,strlen(s));
 }
 
 void waitdialog(struct fdstr **fdlist,fd_set readfds,int *i,int maxpl)
@@ -115,7 +115,7 @@ void gameserv(int port,int maxpl)
   dolistensock(&ls,port);
   for (;;)
   {
-		fdlist=NULL;
+    fdlist=NULL;
     waitpl(&fdlist,ls,maxpl);
     if ((pid=fork())==0)
     {
@@ -149,12 +149,12 @@ void gameserv(int port,int maxpl)
       /* parent */
       
       game(fdlist);
-			write(0,"\nGame was over!\n\n",17);
-			if (kill(pid,9)==-1)
-			{
-				perror("kill");
-				exit(0);
-			}
+      write(0,"\nGame was over!\n\n",17);
+      if (kill(pid,9)==-1)
+      {
+        perror("kill");
+	exit(0);
+      }
     }
   }
 }
