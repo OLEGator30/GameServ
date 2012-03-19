@@ -46,6 +46,7 @@ void newsell(struct apl **list,struct apl *p)
 }
 
 void newbuy(struct apl **list,struct apl *p)
+//here is a problem!!
 {
   struct apl *q,*r;
   
@@ -53,7 +54,7 @@ void newbuy(struct apl **list,struct apl *p)
   r=NULL;
   while (q!=NULL)
   {
-    if ((*q).price<(*p).price) break;
+    if ((*q).price<(*p).price) break;//segmentation fault!
     r=q;
     q=(*q).next;
   }
