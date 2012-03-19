@@ -2,3 +2,7 @@ Project NewServ
 
 This is my server for the game "Managment". It's a new version of project GameServ.
 Some bugs was fixed, so this project needs to be checked buy real people. Also it needs to be checked for memory leaks.
+
+~~~~~~~~~~~~~~
+
+Management is a business simulation board game released by Avalon Hill in 1960. Players operate their own manufacturing companies, making decisions on purchasing supplies, determining production volume, setting sale prices, and expanding factories. Turns are measured in business cycles. The winner is the player with the largest business at the end of the game. The competitive element is found in the players secretly bidding to purchase limited raw materials (with supplies going to the highest bidders) and then later secretly pricing their finished product for a market that normally would only purchase from the lowest priced suppliers.
