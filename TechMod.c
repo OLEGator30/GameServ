@@ -1,3 +1,4 @@
+#include <signal.h>
 #include "TechMod.h"
 
 void infowait(struct fdstr *fdlist,int i,int maxpl)
@@ -108,67 +109,52 @@ void dolistensock(int *ls,int port)
 void gameserv(int port,int maxpl)
 {
   struct fdstr *fdlist;
-  int ls,pipefd[2];
+  int ls,pid;
   fd_set readfds;
 
   dolistensock(&ls,port);
   for (;;)
   {
-    fdlist=NULL;
+		fdlist=NULL;
     waitpl(&fdlist,ls,maxpl);
-    if (pipe(pipefd)==-1)
-    {
-      perror("pipe");
-      exit(0);
-    }
-    if (fork()==0)
+    if ((pid=fork())==0)
     {
       /* child */
-      
-    	close(pipefd[0]);
-      game(fdlist); /* goto GameMod */
-      write(pipefd[1],"0",1);
-      close(pipefd[1]);
-			write(0,"\nGame was over!\n\n",17);
-      exit(0);
+
+      for(;;)
+      {
+        int fd;
+      	struct sockaddr_in addr;
+      	unsigned int len=sizeof(addr);
+
+        FD_ZERO(&readfds);
+        FD_SET(ls,&readfds);
+        if (select(ls+1,&readfds,NULL,NULL,NULL)<1)
+        {
+          perror("select");
+          exit(1);
+        }
+        if ((fd=accept(ls,(struct sockaddr *)&addr,&len))==-1)
+        {
+          perror("accept");
+          exit(1);
+        }
+        write(fd,"\r\nGame was started. Try again later\r\n\r\n",39);
+        shutdown(fd,2);
+        close(fd);
+      }
     }
     else
     {
       /* parent */
       
-      int max;
-      struct sockaddr_in addr;
-      unsigned int len=sizeof(addr);
-
-      close(pipefd[1]);
-      max=ls>pipefd[0]?ls:pipefd[0];
-      for(;;)
-      {
-        FD_ZERO(&readfds);
-        FD_SET(ls,&readfds);
-        FD_SET(pipefd[0],&readfds);
-        if (select(max+1,&readfds,NULL,NULL,NULL)<1)
-        {
-          perror("select");
-          exit(1);
-        }
-        if (FD_ISSET(ls,&readfds))
-        {
-          int fd;
-          
-          if ((fd=accept(ls,(struct sockaddr *)&addr,&len))==-1)
-          {
-            perror("accept");
-            exit(1);
-          }
-          write(fd,"\r\nGame was started. Try again later\r\n\r\n",39);
-          shutdown(fd,2);
-          close(fd);
-        }
-        if (FD_ISSET(pipefd[0],&readfds)) break; 
-      }
-      close(pipefd[0]);
-      wait(NULL);
+      game(fdlist);
+			write(0,"\nGame was over!\n\n",17);
+			if (kill(pid,9)==-1)
+			{
+				perror("kill");
+				exit(0);
+			}
     }
   }
 }
