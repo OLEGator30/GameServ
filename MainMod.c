@@ -46,7 +46,6 @@ void newsell(struct apl **list,struct apl *p)
 }
 
 void newbuy(struct apl **list,struct apl *p)
-//here is a problem!!
 {
   struct apl *q,*r;
   
