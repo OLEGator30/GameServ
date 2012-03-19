@@ -1,8 +1,4 @@
 Project NewServ
 
 This is my server for the game "Managment". It's a new version of project GameServ.
-
-I hope that TechMod works correctly...
-Other modules contain some errors =( Now I'm trying to fix them.
-
-P.S. Project GameServ may contain the same errors, but this is unlikely. I played on this server lots of times with different people and server worked correctly.
+Some bugs was fixed, so this project needs to be checked buy real people. Also it needs to be checked for memory leaks.
