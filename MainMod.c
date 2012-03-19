@@ -8,7 +8,7 @@ void newsell(struct apl **list,struct apl *p)
   r=NULL;
   while (q!=NULL)
   {
-    if ((*q).price>(*p).price) break;//segmentation fault!
+    if ((*q).price>(*p).price) break;
     r=q;
     q=(*q).next;
   }
@@ -53,7 +53,7 @@ void newbuy(struct apl **list,struct apl *p)
   r=NULL;
   while (q!=NULL)
   {
-    if ((*q).price<(*p).price) break;//segmentation fault!
+    if ((*q).price<(*p).price) break;
     r=q;
     q=(*q).next;
   }
@@ -92,14 +92,16 @@ void newbuy(struct apl **list,struct apl *p)
 
 void sortapl(struct apl **list,char c)
 {
-  struct apl *p;
+  struct apl *p,*q;
   
   p=(struct apl *)malloc(sizeof(struct apl));
   (*p).pl=(**list).pl;
   (*p).kol=(**list).kol;
   (*p).price=(**list).price;
-  
+	(*p).next=NULL;
+	q=*list;
   (*list)=(**list).next;
+	free(q);
   while ((*list)!=NULL)
   {
     if (c=='b') newbuy(&p,(*list));
@@ -144,7 +146,7 @@ void lot(char c,int *max,struct apl *list,struct fdstr *fdlist)
 void auction(struct apl *sell,struct apl *buy,int mark,struct fdstr *fdlist)
 {
   int maxbuy=
-      BuySell[mark-1][0]*count(fdlist),maxsell=BuySell[mark-1][2]*count(fdlist);
+  BuySell[mark-1][0]*count(fdlist),maxsell=BuySell[mark-1][2]*count(fdlist);
 
   for(;;)
   {
