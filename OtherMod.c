@@ -273,8 +273,8 @@ void doline(struct fdstr *fdlist)
 {
   while (fdlist!=NULL)
   {
-    write((*fdlist).fd,"----------------------------------------------\r\n",
-		                                                                    48);
+    write((*fdlist).fd,"\r\n------------------------------------------\r\n",
+		                                                                    46);
     fdlist=(*fdlist).next;
   }
   write(0,"\r\n----------------------------------------------\r\n\r\n",52);
