@@ -241,7 +241,7 @@ int devide(char *str,int *kol,int *price)
   return 0;
 }
 
-int mystrcmp(char *s1,char *s2)
+int mystrcmp(char *s1,const char *s2)
 {
   int min,i=0;
 

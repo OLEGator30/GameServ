@@ -5,25 +5,25 @@ extern const float BuySell[5][4];
 
 #include "GameMod.h"
 
-int strtoint(char *s);
-void addfdpl(struct fdstr *fdlist,fd_set *readfds,int *max);
-void addfd (struct fdstr **fdlist,int fd);
-void addprod(struct produce **prodlist,struct fdstr *fdlist);
-void freebuildfact(struct build *list);
-void delclient(int fd,struct fdstr **fdlist);
-int getnumber(int fd,struct fdstr *fdlist);
-int getcom(int fd,char *str,struct fdstr **fdlist);
-int count(struct fdstr *fdlist);
-int devide(char *str,int *kol,int *price);
-int mystrcmp(char *s1,char *s2);
-void givenumbers(struct fdstr *fdlist);
-void doline(struct fdstr *fdlist);
-void endofturn(int fd,struct fdstr *fdlist);
-int getflag(int fd,struct fdstr *fdlist);
-void print(char c,int kol,int money,int number,struct fdstr *fdlist);
-void freeapl(struct apl *list);
-void help(int fd);
-int correctsell(int fd,int price,int mark);
-int correctbuy(int fd,int price,int mark);
+int strtoint(char*);
+void addfdpl(struct fdstr*,fd_set*,int*);
+void addfd (struct fdstr**,int);
+void addprod(struct produce**,struct fdstr*);
+void freebuildfact(struct build*);
+void delclient(int,struct fdstr**);
+int getnumber(int,struct fdstr*);
+int getcom(int,char*,struct fdstr**);
+int count(struct fdstr*);
+int devide(char*,int*,int*);
+int mystrcmp(char *,const char*);
+void givenumbers(struct fdstr*);
+void doline(struct fdstr*);
+void endofturn(int,struct fdstr*);
+int getflag(int,struct fdstr*);
+void print(char,int,int,int,struct fdstr*);
+void freeapl(struct apl*);
+void help(int);
+int correctsell(int,int,int);
+int correctbuy(int,int,int);
 
 #endif
