@@ -148,7 +148,7 @@ void gameserv(int port,int maxpl)
     {
       /* parent */
       
-      game(fdlist);
+      game(fdlist,maxpl);
       write(0,"\nGame was over!\n\n",17);
       if (kill(pid,9)==-1)
       {

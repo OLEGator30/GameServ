@@ -55,17 +55,17 @@ struct produce
 
 #include "MainMod.h"
 
-int active(struct fdstr *fdlist,int fd,char *com,struct apl **sell,
-                           struct apl **buy,int mark,struct produce **prodlist);
-int answer(struct fdstr *fdlist,int fd,char *com,int mark,struct apl **sell,
-                                    struct apl **buy,struct produce **prodlist);
-void chmark(int *mark);
-void cost(struct fdstr *fdlist);
-void bankrupt(struct fdstr **fdlist);
-int commands(struct fdstr **fdlist,fd_set readfds,int *i,int mark,
-                  struct apl **sell,struct apl **buy,struct produce **prodlist);
-void recvcommands(struct fdstr **fdlist,int mark,struct apl **sell,
-                                    struct apl **buy,struct produce **prodlist);
-void game(struct fdstr *fdlist);
+int active(struct fdstr*,int,char*,struct apl**,struct apl**,int,
+																												struct produce**);
+int answer(struct fdstr*,int,char*,int,struct apl**,struct apl**,
+																										struct produce**,int);
+void chmark(int*);
+void cost(struct fdstr*);
+void bankrupt(struct fdstr**);
+int commands(struct fdstr**,fd_set,int*,int,struct apl**,struct apl**,
+																										struct produce**,int);
+void recvcommands(struct fdstr**,int,struct apl**,struct apl**,
+																										struct produce**,int);
+void game(struct fdstr*,int);
 
 #endif

@@ -40,7 +40,7 @@ int active(struct fdstr *fdlist,int fd,char *com,struct apl **sell,
 }
 
 int answer(struct fdstr *fdlist,int fd,char *com,int mark,struct apl **sell,
-                                 struct apl **buy,struct produce **prodlist)
+                  struct apl **buy,struct produce **prodlist,int allplayers)
 {
   if (strcmp("help\n",com)==0)
   {
@@ -51,7 +51,7 @@ int answer(struct fdstr *fdlist,int fd,char *com,int mark,struct apl **sell,
   {
     char s[256];
 
-    sprintf(s,"%d players still active\r\n",count(fdlist));
+    sprintf(s,"%d/%d players still active\r\n",count(fdlist),allplayers);
     sprintf(s+strlen(s),"Bank sells: items  min. price\r\n");
     sprintf(s+strlen(s),"%17.0f %11.0f\r\n",
                        BuySell[mark-1][0]*count(fdlist),BuySell[mark-1][1]);
@@ -193,7 +193,8 @@ void bankrupt(struct fdstr **fdlist)
 }
 
 int commands(struct fdstr **fdlist,fd_set readfds,int *i,int mark,
-               struct apl **sell,struct apl **buy,struct produce **prodlist)
+   																struct apl **sell,struct apl **buy,
+																	struct produce **prodlist,int allplayers)
 {
   char s[64];
   struct fdstr *p;
@@ -211,7 +212,7 @@ int commands(struct fdstr **fdlist,fd_set readfds,int *i,int mark,
         (*p).bufwght+=strlen(s);
         if ((*p).buf[(*p).bufwght-1]=='\n')
         {
-          (*i)+=answer(*fdlist,(*p).fd,s,mark,sell,buy,prodlist);
+          (*i)+=answer(*fdlist,(*p).fd,s,mark,sell,buy,prodlist,allplayers);
           (*p).buf[0]=0;
           (*p).bufwght=0;
         }
@@ -239,7 +240,7 @@ int commands(struct fdstr **fdlist,fd_set readfds,int *i,int mark,
 }
 
 void recvcommands(struct fdstr **fdlist,int mark,struct apl **sell,
-                                 struct apl **buy,struct produce **prodlist)
+                  struct apl **buy,struct produce **prodlist,int allplayers)
 {
   fd_set readfds;
   int max=0,i=0;
@@ -253,11 +254,12 @@ void recvcommands(struct fdstr **fdlist,int mark,struct apl **sell,
       perror("select");
       exit(1);
     }
-    if (commands(fdlist,readfds,&i,mark,sell,buy,prodlist)==-1) break;
+    if (commands(fdlist,readfds,&i,mark,sell,buy,prodlist,allplayers)==-1)
+			break;
   }
 }
 
-void game(struct fdstr *fdlist) /* from TechMod */
+void game(struct fdstr *fdlist,int allplayers) /* from TechMod */
 {
   int month=0,mark=3;
   struct apl *sell,*buy;
@@ -271,7 +273,7 @@ void game(struct fdstr *fdlist) /* from TechMod */
     newmonth(&month,fdlist);
     sell=buy=NULL;
     prodlist=NULL;
-    recvcommands(&fdlist,mark,&sell,&buy,&prodlist);
+    recvcommands(&fdlist,mark,&sell,&buy,&prodlist,allplayers);
     endofmonth(fdlist,sell,buy,prodlist,mark);
     cost(fdlist);
     bankrupt(&fdlist);
