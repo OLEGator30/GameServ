@@ -403,7 +403,7 @@ void prodproc(struct fdstr *fdlist,int fd,int kol,struct produce **prodlist)
   if (((*p).kol>(*fdlist).factory)||((*p).kol>(*fdlist).raw)||
 	                                          ((*p).kol*2000>(*fdlist).money))
   {
-    write(fd,"You don't have enough factories, raw materials or\
+    write(fd,"You don't have enough factories, raw materials or \
 money\r\n\r\n",59);
     (*p).kol-=kol;
   }
